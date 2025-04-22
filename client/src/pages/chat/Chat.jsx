@@ -6,6 +6,7 @@ const Chat = () => {
 
     const socketRef = useRef(null);
     const [nickname, setNickname] = useState(defaultName);
+    const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([]);
 
     const emojis = ["🍎", "🍋‍🟩", "🍒", "🍑", "🍈", "🍍", "🍋", "🍅", "🥑", "🌽", "🥕", "🌴"]
@@ -18,16 +19,16 @@ const Chat = () => {
         }
 
         if (!socketRef.current) {
-            const socket = new WebSocket(`ws://localhost:8080/ws/chat?roomId=${roomId}`);
+            const socket = new WebSocket(`ws://192.168.0.3:8080/ws/chat?roomId=${roomId}`);
             socketRef.current = socket;
 
             socket.onopen = () => {
                 const sender = savedNickname.length > 0 ? savedNickname : defaultName
-                const message = {
+                const data = {
                     sender: sender,          // setNickname 세팅 전이므로
                     content: "안녕! 나 들어왔어"
                 }
-                socket.send(JSON.stringify(message));
+                socket.send(JSON.stringify(data));
             };
 
             socket.onmessage = (event) => {
@@ -51,14 +52,18 @@ const Chat = () => {
 
     const sendMessage = () => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-            const randomPhrases = phrases[Math.floor(Math.random() * phrases.length)]
-            const message = {
+            const data = {
                 sender: nickname,
-                content: randomPhrases
+                content: message
             }
-            socketRef.current.send(JSON.stringify(message));
+            socketRef.current.send(JSON.stringify(data));
+            setMessage("")
         }
     };
+
+    const handleInputChange = (e) => {
+        setMessage(e.target.value)
+    }
 
     const closeConnection = () => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
@@ -71,12 +76,19 @@ const Chat = () => {
         <>
             <h2>💬 채팅 페이지</h2>
             <h3>{nickname && `${nickname} 님 안녕하세요`}</h3>
-            <button onClick={sendMessage}>메시지 보내기</button>
+
             <div>
                 {messages.map((msg, i) => (
                     <p key={i}>{msg}</p>
                 ))}
             </div>
+            <input
+                type="text"
+                value={message}
+                onChange={handleInputChange}
+                placeholder="메세지를 입력하세요"
+            />
+            <button onClick={sendMessage} disabled={!message.length > 0}>메시지 보내기</button>
             <button onClick={closeConnection}>채팅 종료하기</button>
         </>
     )

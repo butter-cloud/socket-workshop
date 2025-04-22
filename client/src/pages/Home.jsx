@@ -1,4 +1,5 @@
 import {useState} from "react";
+import styles from "./Home.module.scss";
 
 export const Home = () => {
     const [nickname, setNickname] = useState("");
@@ -8,21 +9,26 @@ export const Home = () => {
     };
 
     const openChat = () => {
-        localStorage.setItem("nickname", nickname);
+        localStorage.setItem("nickname", nickname.trim());
         setNickname("");
         window.open("/chat", "chatWindow", "left=100, top=10, width=400, height=700")
     }
 
     return(
         <>
-            <p>닉네임을 입력하세요</p><br/>
-            <input
-                type="text"
-                value={nickname}
-                onChange={handleInputChange}
-                placeholder="닉네임 입력"
-            />
-            <button onClick={openChat}>채팅 시작하기</button>
+            <div className={styles.container}>
+                <p className={styles.title}>🌴 닉네임을 입력해주세요</p>
+                <input
+                    type="text"
+                    value={nickname}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                    placeholder="nickname"
+                />
+                <button className={styles.button} onClick={openChat}>
+                    채팅 시작하기
+                </button>
+            </div>
         </>
     )
 }
