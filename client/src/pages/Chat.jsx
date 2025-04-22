@@ -5,6 +5,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
 
     const emojis = ["🍎", "🍋‍🟩", "🍒", "🍑", "🍈", "🍍", "🍋", "🍅", "🥑", "🌽", "🥕", "🌴"]
+    const phrases = ["반가워", "안녕안녕", "우와", "안녕하세요"]
 
     useEffect(() => {
         if (!socketRef.current) {
@@ -37,7 +38,8 @@ const Chat = () => {
 
     const sendMessage = () => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-            socketRef.current.send("반가워");
+            const randomPhrases = phrases[Math.floor(Math.random() * phrases.length)]
+            socketRef.current.send(randomPhrases);
         }
     };
 
@@ -45,6 +47,7 @@ const Chat = () => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
             socketRef.current.close();
         }
+        window.close();
     }
 
     return (
