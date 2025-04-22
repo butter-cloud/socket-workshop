@@ -1,5 +1,6 @@
 package com.workshop.socket_workshop.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.workshop.socket_workshop.model.ChatMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,24 +20,33 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatHandler extends TextWebSocketHandler {
 
     private final Map<String, List<WebSocketSession>> chatRooms = new ConcurrentHashMap<>();
+    private final ObjectMapper objectMapper;
+
+    public ChatHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        log.info("session id : {}" , session.getId());
         String roomId = getRoomId(session);
-        // chatRooms에 없는 경우에 세션 추가
+        // 해당 roomId로 chatRooms 리스트가 없는 경우 만들고 session 추가
         chatRooms.computeIfAbsent(roomId, k -> new ArrayList<>()).add(session);
+        session.sendMessage(new TextMessage("입장 완료!"));
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        log.info("메세지 수신: {}", message.getPayload());
-        String roomId = getRoomId(session);
+        String payload = message.getPayload();
+        ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage.class);
+        log.info("chatMessage : {}", chatMessage);
 
-        // 해당 roomId chatRooms에 있는 session에게 메세지 전송
+        // 해당 roomId chatRooms에 있는 session에게 메세지 전달
+        String roomId = getRoomId(session);
         List<WebSocketSession> sessions = chatRooms.get(roomId);
         if (sessions != null) {
             for (WebSocketSession s : sessions) {
-                s.sendMessage(new TextMessage("server: " + message.getPayload()));
+                s.sendMessage(new TextMessage(chatMessage.getSender() + ": " + chatMessage.getContent()));
             }
         }
     }
