@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 
-const Chat = () => {
+const WebSocketChat = () => {
     const roomId = "room1"
     const defaultName = "익명"
 
@@ -88,10 +88,10 @@ const Chat = () => {
                 onChange={handleInputChange}
                 placeholder="메세지를 입력하세요"
             />
-            <button onClick={sendMessage} disabled={!message.length > 0}>메시지 보내기</button>
+            <button onClick={sendMessage} disabled={!message.trim().length > 0}>메시지 보내기</button>
             <button onClick={closeConnection}>채팅 종료하기</button>
         </>
     )
 }
 
-export default Chat
+export default WebSocketChat
