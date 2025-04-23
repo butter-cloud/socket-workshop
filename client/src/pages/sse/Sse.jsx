@@ -1,11 +1,15 @@
 import {useState} from "react";
 import styles from "./Sse.module.scss"
 import SseMessageSender from "../../components/SseMessageSender";
+import {useDispatch, useSelector} from "react-redux";
+import {setUsername} from "../../redux/userSlice";
 
 export const Sse = () => {
     const [isConnected, setIsConnected] = useState(false);
-    const [username, setUsername] = useState("");
     const [messages, setMessages] = useState([]);
+
+    const dispatch = useDispatch();
+    const username = useSelector((state) => state.user.username);
 
     const subscribeSse = () => {
         const eventSource = new EventSource(`http://localhost:8080/sse/subscribe?username=${username}`)
@@ -31,7 +35,7 @@ export const Sse = () => {
     }
 
     const handleUsernameChange = (e) => {
-        setUsername(e.target.value)
+        dispatch(setUsername(e.target.value))
     }
 
     return (
