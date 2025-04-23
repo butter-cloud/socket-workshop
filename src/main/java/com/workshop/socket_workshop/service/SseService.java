@@ -6,6 +6,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -24,6 +25,10 @@ public class SseService {
                     .reconnectTime(RETRY_TIME)
                     .name("connect")
                     .data("Connected! Your emitterKey: " + emitterKey));
+
+            emitter.send(SseEmitter.event()
+                    .reconnectTime(RETRY_TIME)
+                    .data("event type 설정 안한 일반 메세지 입니다"));
         } catch (IOException e) {
             log.error("Failed to send initial message", e);
         }
@@ -33,6 +38,20 @@ public class SseService {
 
         emitters.put(emitterKey, emitter);
         return emitter;
+    }
+
+    public void sendMessage(String emitterKey, String message) {
+        Optional.ofNullable(emitters.get(emitterKey))
+                .ifPresent(emitter -> {
+                    try {
+                        emitter.send(SseEmitter.event()
+                                .data(message)
+                        );
+                    } catch (IOException e) {
+                        log.error("Failed to send initial message", e);
+                        emitter.complete();
+                    }
+                });
     }
 
     private void setupEmitterCallbacks(SseEmitter emitter, String emitterKey) {

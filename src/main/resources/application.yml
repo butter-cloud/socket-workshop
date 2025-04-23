@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: socket-workshop
+
+server:
+  shutdown: immediate

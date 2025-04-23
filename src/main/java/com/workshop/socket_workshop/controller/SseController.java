@@ -1,13 +1,16 @@
 package com.workshop.socket_workshop.controller;
 
+import com.workshop.socket_workshop.model.MessageRequest;
 import com.workshop.socket_workshop.service.SseService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -30,5 +33,19 @@ public class SseController {
         response.setHeader("X-Accel-Buffering", "no");
 
         return sseService.subscribe(username);
+    }
+
+    @PostMapping(value = "/sse/send")
+    public ResponseEntity<Map<String, Boolean>> sendMessage(@RequestBody MessageRequest messageRequest) {
+        log.info("SSE message request - recipient: {}, sender: {}, message: {}", messageRequest.getRecipient(), messageRequest.getSender(), messageRequest.getMessage());
+        try {
+            sseService.sendMessage(messageRequest.getRecipient(), messageRequest.getMessage());
+            return ResponseEntity.ok(Map.of("success", true));
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false));
+        }
     }
 }
