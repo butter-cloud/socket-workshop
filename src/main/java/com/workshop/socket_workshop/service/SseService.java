@@ -28,7 +28,7 @@ public class SseService {
 
             emitter.send(SseEmitter.event()
                     .reconnectTime(RETRY_TIME)
-                    .data("event type 설정 안한 일반 메세지 입니다"));
+                    .data(emitterKey + "님 연결되었습니다"));
         } catch (IOException e) {
             log.error("Failed to send initial message", e);
         }
@@ -40,11 +40,19 @@ public class SseService {
         return emitter;
     }
 
+    // eventType 입력 없으면 기본값으로 "message" 설정
     public void sendMessage(String emitterKey, String message) {
+        sendMessage(emitterKey, message, "message");
+    }
+
+    // eventType 입력 시
+    public void sendMessage(String emitterKey, String message, String eventType) {
         Optional.ofNullable(emitters.get(emitterKey))
                 .ifPresent(emitter -> {
                     try {
+                        String finalEventType = (eventType == null || eventType.isBlank()) ? "message" : eventType;
                         emitter.send(SseEmitter.event()
+                                .name(finalEventType)
                                 .data(message)
                         );
                     } catch (IOException e) {
