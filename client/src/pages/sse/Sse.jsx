@@ -1,6 +1,5 @@
 import {useState} from "react";
 import styles from "./Sse.module.scss"
-import SseMessageSender from "../../components/SseMessageSender";
 import {useDispatch, useSelector} from "react-redux";
 import {setUsername} from "../../redux/userSlice";
 
@@ -38,6 +37,10 @@ export const Sse = () => {
         dispatch(setUsername(e.target.value))
     }
 
+    const openMessageSender = () => {
+        window.open("/sse/send", "messageSender", "left=500, top=40, width=390, height=650")
+    }
+
     return (
         <>
             <div className={styles.sseSendContainer}>
@@ -55,7 +58,7 @@ export const Sse = () => {
             </div>
             <button onClick={subscribeSse}>Click to connect!</button>
             <br/>
-            <SseMessageSender/>
+            <button onClick={openMessageSender}>🌴 메세지 보내기</button>
         </>
     )
 }

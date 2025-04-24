@@ -3,6 +3,7 @@ package com.workshop.socket_workshop.controller;
 import com.workshop.socket_workshop.model.MessageRequest;
 import com.workshop.socket_workshop.service.SseService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,13 +15,10 @@ import java.util.Map;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class SseController {
 
     private final SseService sseService;
-
-    public SseController(SseService sseService) {
-        this.sseService = sseService;
-    }
 
     @GetMapping(value ="/sse/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter subscribe(HttpServletResponse response, @RequestParam String username) {

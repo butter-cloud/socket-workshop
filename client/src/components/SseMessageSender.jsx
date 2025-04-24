@@ -1,10 +1,13 @@
 import styles from './SseMessageSender.module.scss'
 import axios from "axios";
 import {useState} from "react";
+import {useSelector} from "react-redux";
 
 export const SseMessageSender = () => {
     const [recipient, setRecipient] = useState(null)
     const [message, setMessage] = useState(null)
+
+    const username = useSelector((state) => state.user.username);
 
     const sendMessage = () => {
         const data = {
@@ -32,6 +35,8 @@ export const SseMessageSender = () => {
     return (
         <>
             <div className={styles.sseMessageSenderContainer}>
+                <span>보내는사람</span>
+                <span><strong>{username}</strong></span>
                 <span>받는사람</span>
                 <input onChange={handleRecipientChange}/>
                 <span>메세지</span>
