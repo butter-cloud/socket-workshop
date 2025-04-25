@@ -1,0 +1,74 @@
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
+  z-index: 999;
+}
+
+.flexBackground {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../../../public/animal-cross.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  position: relative;
+}
+
+.messageCountContainer {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 42vh;
+  left: 20vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-image: url('../../../public/ballon.png');
+  background-size: cover;
+
+  span {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+}
+
+.messageSender {
+  position: absolute;
+  bottom: 30px;
+  right: 15px;
+  background-image: url('../../../public/letter_2.png');
+  background-size: cover;
+  background-position: center;
+  width: 100px;
+  height: 80px;
+  cursor: pointer;
+}
+
+.mailBox {
+  position: absolute;
+  top: 5vh;
+  left: 10vw;
+  width: 80vw;
+  height: 90vh;
+  background-color: #fff;
+  border-radius: 5%;
+  box-sizing: border-box;
+  padding: 10px;
+
+  .closeButton {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}

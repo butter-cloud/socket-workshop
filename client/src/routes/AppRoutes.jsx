@@ -4,12 +4,14 @@ import Websocket from "../pages/websocket/Websocket";
 import WebSocketChat from "../pages/websocket/chat/WebSocketChat";
 import {Sse} from "../pages/sse/Sse";
 import {Send} from "../pages/sse/send/Send";
+import AnimalCross from "../pages/animalCross/AnimalCross";
 
 const AppRoutes = () => {
     return (
         <>
             <Routes>
                 <Route path="/" element={<Home/>} />
+                <Route path="/animal-cross" element={<AnimalCross/>} />
                 <Route path="/sse" element={<Sse/>} />
                 <Route path="/sse/send" element={<Send/>} />
                 <Route path="/websocket" element={<Websocket/>}/>
