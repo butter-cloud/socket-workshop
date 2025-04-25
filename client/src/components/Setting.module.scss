@@ -1,0 +1,20 @@
+.settingContainer {
+  z-index: 999;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+  height: 36vh;
+  top: 32vh;
+  left: 30vw;
+  background-color: #fff3c8;
+  border-radius: 25px;
+
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  }
+}

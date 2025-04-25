@@ -27,6 +27,7 @@ public class SseService {
                     .data("Connected! Your emitterKey: " + emitterKey));
 
             emitter.send(SseEmitter.event()
+                    .name("connect")
                     .reconnectTime(RETRY_TIME)
                     .data(emitterKey + "님 연결되었습니다"));
         } catch (IOException e) {

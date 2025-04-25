@@ -34,6 +34,20 @@
   background-image: url('../../../public/ballon.png');
   background-size: cover;
 
+  &:hover {
+    transform: scale(1.1); // hover 시 약간 커짐
+  }
+
+  &:active {
+    transform: scale(0.95); // 클릭 시 살짝 줄어듦
+  }
+
+  &.empty {
+    opacity: 0.8;
+    filter: brightness(0.7);
+    pointer-events: none;
+  }
+
   span {
     font-size: 3rem;
     font-weight: 700;
@@ -48,9 +62,17 @@
   background-image: url('../../../public/letter_2.png');
   background-size: cover;
   background-position: center;
-  width: 100px;
-  height: 80px;
+  width: 150px;
+  height: 120px;
   cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1); // hover 시 약간 커짐
+  }
+
+  &:active {
+    transform: scale(0.95); // 클릭 시 살짝 줄어듦
+  }
 }
 
 .mailBox {
@@ -61,10 +83,13 @@
   height: 80vh;
   border-radius: 5%;
   box-sizing: border-box;
-  padding: 70px;
+  padding: 120px;
   background-image: url('../../../public/letter_clover.png');
   background-size: cover;
   background-position: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #493324;
 
   .closeButton {
     position: absolute;
