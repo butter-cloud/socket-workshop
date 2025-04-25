@@ -1,11 +1,26 @@
+body {
+    background-color: #fbecc9;
+}
+
 .sseMessageSenderContainer {
-    width: 400px;
     display: flex;
     flex-direction: column;
     padding: 1rem;
 
     textarea {
-        height: 300px;
+        height: 200px;
         resize: none;
+    }
+
+    button {
+        margin-top: 10px;
+        background-color: #ffffff;
+        border: 1px solid #493324;
+        cursor: pointer;
+        height: 30px;
+
+        &:hover {
+            background-color: #ffd752;
+        }
     }
 }

@@ -11,10 +11,26 @@
   left: 30vw;
   background-color: #fff3c8;
   border-radius: 25px;
+  padding-top: 20px;
+  gap: 10px;
 
   input {
-    font-size: 1rem;
+    width: 192px;
+    font-size: 1.2rem;
     text-align: center;
+  }
+
+  button {
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #493324;
+    height: 28px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 
   .closeButton {

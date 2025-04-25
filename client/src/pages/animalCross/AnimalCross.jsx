@@ -48,7 +48,7 @@ export const AnimalCross = () => {
     }
 
     const openMessageSender = () => {
-        window.open("/sse/send", "messageSender", "left=500, top=40, width=430, height=650")
+        window.open("/sse/send", "messageSender", "left=450, top=200, width=600, height=390")
     }
 
     const handleCloseMailBox = () => {
@@ -86,7 +86,7 @@ export const AnimalCross = () => {
                     <div className={styles.closeButton} onClick={handleCloseMailBox}>❌</div>
                 </div>
             }
-            {isUsernameOpen && <UsernameModal setIsUsernameOpen={setIsUsernameOpen} connectSse={connectSse}/>}
+            {isUsernameOpen && <UsernameModal setIsUsernameOpen={setIsUsernameOpen} connectSse={connectSse}/> }
             {isSettingOpen && <Setting setIsSettingOpen={setIsSettingOpen} setIsUsernameOpen={setIsUsernameOpen}/> }
         </>
     )

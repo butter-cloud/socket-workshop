@@ -38,13 +38,13 @@ export const SseMessageSender = () => {
     return (
         <>
             <div className={styles.sseMessageSenderContainer}>
-                <span>보내는사람</span>
+                <span>🏘️ 보내는사람</span>
                 <span><strong>{username}</strong></span>
-                <span>받는사람</span>
+                <span>🏝️ 받는사람</span>
                 <input onChange={handleRecipientChange}/>
                 <span>메세지</span>
                 <textarea onChange={handleMessageChange}/>
-                <button onClick={sendMessage}>보내기!</button>
+                <button onClick={sendMessage}>✉️ 보내기!</button>
             </div>
         </>
     )
