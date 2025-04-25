@@ -1,10 +1,19 @@
 .logo {
   position: absolute;
   top: 20px;
-  left: 20px;
+  left: 25px;
   width: 80px;
   height: 80px;
   z-index: 999;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1); // hover 시 약간 커짐
+  }
+
+  &:active {
+    transform: scale(0.95); // 클릭 시 살짝 줄어듦
+  }
 }
 
 .flexBackground {

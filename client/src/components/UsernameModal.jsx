@@ -10,6 +10,7 @@ export const UsernameModal = ({setIsUsernameOpen, connectSse}) => {
     const handleConfirm = () => {
         dispatch(setUsername(inputUsername))
         setIsUsernameOpen(false)
+        console.log(`${inputUsername} 으로 SSE 연결을 시도합니다.`)
         connectSse(inputUsername)
     }
 
@@ -22,6 +23,10 @@ export const UsernameModal = ({setIsUsernameOpen, connectSse}) => {
                     onChange={(e)=>{setInputUsername(e.target.value)}}
                 />
                 <button onClick={handleConfirm}>확인</button>
+                <span
+                    className={styles.closeButton}
+                    onClick={() => {setIsUsernameOpen(false)}}
+                >❌</span>
             </div>
         </>
     )

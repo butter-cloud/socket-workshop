@@ -22,6 +22,9 @@ export const SseMessageSender = () => {
             .catch(err => {
                 console.error(err)
             })
+            .finally(
+                window.close()
+            )
     }
 
     const handleRecipientChange = (e) => {

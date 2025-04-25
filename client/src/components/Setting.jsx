@@ -12,8 +12,7 @@ export const Setting = ({setIsSettingOpen, setIsUsernameOpen}) => {
     return (
         <>
             <div className={styles.settingContainer}>
-                Setting
-                <span>{`이름: ${username}`}</span>
+                <span className={styles.nameValue}>{username}</span>
                 <span
                     className={styles.closeButton}
                     onClick={() => {setIsSettingOpen(false)}}
