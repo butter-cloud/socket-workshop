@@ -55,20 +55,50 @@
 
 .mailBox {
   position: absolute;
-  top: 5vh;
-  left: 10vw;
-  width: 80vw;
-  height: 90vh;
-  background-color: #fff;
+  top: 10vh;
+  left: 20vw;
+  width: 60vw;
+  height: 80vh;
   border-radius: 5%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 70px;
+  background-image: url('../../../public/letter_clover.png');
+  background-size: cover;
+  background-position: center;
 
   .closeButton {
     position: absolute;
-    top: 20px;
-    right: 30px;
+    top: 30px;
+    right: 50px;
     font-size: 2rem;
     cursor: pointer;
+  }
+
+  .buttonContainer {
+    position: absolute;
+    bottom: 7%;
+    left: 22vw;
+    display: flex;
+    gap: 10vw;
+
+    span {
+      font-size: 2.5rem;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1); // hover 시 약간 커짐
+      }
+
+      &:active {
+        transform: scale(0.95); // 클릭 시 살짝 줄어듦
+      }
+    }
+  }
+
+  .disabledButton {
+    filter: brightness(0.5);
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
   }
 }
